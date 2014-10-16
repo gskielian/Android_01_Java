@@ -38,47 +38,44 @@ public class HelloAndroidJava extends Activity {
         edit_text_answer = (EditText) findViewById(R.id.editText);
         judging_button = (Button) findViewById(R.id.button);
 
+        //react to enter key
         edit_text_answer.setOnKeyListener(new EditText.OnKeyListener() {
             public boolean onKey(View view, int keyCode, KeyEvent keyevent) {
                 //if enter key is pressed
                 if ((keyevent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    //get user's guess
-                    String user_guess = edit_text_answer.getText().toString();
-
-                    //test if they got it right
-                    Boolean correct_or_not  = check_guess(user_guess);
-
-                    //test whether guess is
-                    String my_response = (correct_or_not) ? user_guess + " is definitely one of them.": "Not a big fan of " + user_guess + ".";
-
-                    //display the result
-                    judgement_view.setText(my_response);
-                    return true;
+                    //judge and reply
+                    judge_guess_and_reply();
                 }
-                return false;
+                return true;
             }
         });
 
         //Define what our button does when clicked:
         judging_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //get user's guess
-                String user_guess = edit_text_answer.getText().toString();
-
-                //test if they got it right
-                Boolean correct_or_not  = check_guess(user_guess);
-
-                //test whether guess is
-                String my_response = (correct_or_not) ? user_guess + " is definitely one of them.": "Not a big fan of " + user_guess + ".";
-
-                //display the result
-                judgement_view.setText(my_response);
+                //judge and reply
+                judge_guess_and_reply();
             }
         });
 
     }
 
-    //example of a class method
+    //example of an additional class method
+    private void judge_guess_and_reply() {
+        //get user's guess
+        String user_guess = edit_text_answer.getText().toString();
+
+        //test if they got it right
+        Boolean correct_or_not  = check_guess(user_guess);
+
+        //test whether guess is
+        String my_response = (correct_or_not) ? user_guess + " is definitely one of them.": "Not a big fan of " + user_guess + ".";
+
+        //display the result
+        judgement_view.setText(my_response);
+    }
+
+    //example of a helper method
     private Boolean check_guess(String edit_text_answer) {
         for (String user_guess : my_secret_answers) {
             if (user_guess.equals(edit_text_answer) )
@@ -87,6 +84,7 @@ public class HelloAndroidJava extends Activity {
         return false;
     }
 
+    //below are defaults from android studio:
 
     //creates a menu and adds to action bar
     @Override
@@ -105,25 +103,6 @@ public class HelloAndroidJava extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private class MyTextView extends EditText
-    {
-        public MyTextView(Context context) {
-            super(context);
-        }
-        @Override
-        public boolean onKeyDown(int keyCode, KeyEvent event)
-        {
-
-            if (keyCode==KeyEvent.KEYCODE_ENTER)
-            {
-                // Just ignore the [Enter] key
-                return true;
-            }
-            // Handle all other keys in the default way
-            return super.onKeyDown(keyCode, event);
-        }
     }
 
 }
