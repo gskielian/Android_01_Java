@@ -1,7 +1,6 @@
 package com.example.gkielian.android_01_java;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
